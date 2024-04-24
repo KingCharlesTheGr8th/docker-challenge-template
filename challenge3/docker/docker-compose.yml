@@ -1,0 +1,22 @@
+version: '3'
+services:
+  node-service:
+    build: ./api
+    ports:
+      - 3000
+    env_file:
+      - .env
+  db:
+    build: ./db
+    image: mariadb
+    container_name: mariadb
+    ports:
+      - '3306:3306'
+    env_file:
+      - .env
+    volumes:
+      - ./db/data:/var/lib/mysql
+  nginx:
+    build: ./nginx
+    ports:
+      - '8080:80'
